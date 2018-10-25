@@ -1,0 +1,32 @@
+language: scala
+jdk: oraclejdk8
+scala: 2.12.7
+
+jobs:
+  include:
+    - stage: test
+      script: sbt scalafmtCheck scalafmtSbtCheck
+      name: "Formatting check"
+    - script: sbt test
+      name: "Tests run"
+    - stage: publish
+      script: sbt ^publish
+
+stages:
+  - name: test # runs on master commits and PRs
+    if: NOT tag =~ ^v
+  - name: publish # runs on main repo master commits or version-tagged commits
+    if: repo = lightbend/sbt-paradox-dependencies AND ( ( branch = master AND type = push ) OR tag =~ ^v )
+
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt
+
+before_cache:
+  - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print -delete
+  - find $HOME/.sbt        -name "*.lock"               -print -delete
+
+notifications:
+  email:
+    on_success: never
