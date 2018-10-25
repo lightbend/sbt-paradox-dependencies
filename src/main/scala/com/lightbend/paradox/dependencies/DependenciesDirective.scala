@@ -19,16 +19,20 @@ package com.lightbend.paradox.dependencies
 import com.lightbend.paradox.markdown.LeafBlockDirective
 import net.virtualvoid.sbt.graph.{ModuleTree, ModuleTreeNode}
 import org.pegdown.Printer
-import org.pegdown.ast.{DirectiveNode, TextNode, Visitor}
+import org.pegdown.ast.{DirectiveNode, VerbatimGroupNode, VerbatimNode, Visitor}
 
 class DependenciesDirective(nameToDependencies: String => ModuleTree) extends LeafBlockDirective("dependencies") {
   def render(node: DirectiveNode, visitor: Visitor, printer: Printer): Unit = {
     val moduleName = node.attributes.value("module")
-    printer.println.print(nameToDependencies(moduleName) /*.roots.map { n =>
-      n.mkString("\n")
-    }*/ .toString)
+    val tree       = nameToDependencies(moduleName)
+    val sb         = StringBuilder.newBuilder
+    tree.roots.foreach(renderNode(sb, "", _, printer))
+    new VerbatimNode(sb.toString, "").accept(visitor)
   }
 
-  private def renderNode(indent: String, n: ModuleTreeNode): Unit = {}
-
+  private def renderNode(sb: StringBuilder, indent: String, n: ModuleTreeNode, printer: Printer): Unit = {
+    val moduleId = n.node.id
+    sb.append(indent + moduleId.organisation + " % " + moduleId.name + " % " + moduleId.version).append("\n")
+    n.children.foreach(renderNode(sb, indent + "   ", _, printer))
+  }
 }
