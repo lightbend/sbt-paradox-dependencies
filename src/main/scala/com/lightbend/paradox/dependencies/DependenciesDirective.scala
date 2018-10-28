@@ -30,9 +30,20 @@ class DependenciesDirective(nameToDependencies: String => ModuleTree) extends Le
     new VerbatimNode(sb.toString, "").accept(visitor)
   }
 
-  private def renderNode(sb: StringBuilder, indent: String, n: ModuleTreeNode, printer: Printer): Unit = {
-    val moduleId = n.node.id
-    sb.append(indent + moduleId.organisation + " % " + moduleId.name + " % " + moduleId.version).append("\n")
-    n.children.foreach(renderNode(sb, indent + "   ", _, printer))
-  }
+  private def renderNode(sb: StringBuilder, indent: String, n: ModuleTreeNode, printer: Printer): Unit =
+    if (n.node.evictedByVersion.isEmpty) {
+      val moduleId = n.node.id
+      val name     = moduleId.name
+      sb.append(indent)
+        .append('"')
+        .append(moduleId.organisation)
+        .append('"')
+        .append(" ")
+        .append(name)
+        .append(" ")
+        .append(moduleId.version)
+      n.node.license.foreach(l => sb.append(" //").append(l))
+      sb.append("\n")
+      n.children.foreach(renderNode(sb, indent + "   ", _, printer))
+    }
 }
