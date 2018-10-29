@@ -8,6 +8,11 @@ A [Paradox](https://github.com/lightbend/paradox/) directive to list a module's 
 addSbtPlugin("com.lightbend.paradox" % "sbt-paradox-dependencies" % <latest>)
 ```
 
+Use the directive in a Paradox markdown file and specify the sbt module name.
+```
+@@dependencies { module="core" }
+```
+
 ## License
 
 The license is Apache 2.0, see LICENSE.
