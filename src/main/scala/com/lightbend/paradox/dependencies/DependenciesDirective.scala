@@ -70,7 +70,6 @@ class DependenciesDirective(nameToDependencies: String => ModuleTree) extends Le
 
   private def renderTree(node: DirectiveNode, roots: Seq[ModuleTreeNode], p: Printer): Unit = {
     p.print("<dt>Dependency tree</dt><dd><pre>")
-    p.println()
     for {
       r <- roots
       d <- r.children
@@ -84,7 +83,8 @@ class DependenciesDirective(nameToDependencies: String => ModuleTree) extends Le
     if (n.node.evictedByVersion.isEmpty) {
       val moduleId = n.node.id
       val name     = moduleId.name
-      p.print(moduleId.organisation)
+      p.println()
+        .print(moduleId.organisation)
         .print("    ")
         .print(name)
         .print(
@@ -94,11 +94,9 @@ class DependenciesDirective(nameToDependencies: String => ModuleTree) extends Le
       n.node.license.foreach(l => p.print("    ").print(l))
       if (n.children.nonEmpty) {
         p.indent(4)
-        p.println()
         n.children.foreach(renderTreeNode(p, _))
         p.indent(-4)
       }
-      p.println()
     }
 
 }
