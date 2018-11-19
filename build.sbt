@@ -24,7 +24,7 @@ scmInfo := Some(
 developers += Developer(
   "contributors",
   "Contributors",
-  "",
+  "https://gitter.im/lightbend/paradox",
   url("https://github.com/lightbend/sbt-paradox-dependencies/graphs/contributors")
 )
 organizationName := "Lightbend Inc."
