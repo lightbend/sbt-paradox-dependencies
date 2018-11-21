@@ -11,6 +11,7 @@ jobs:
       name: "Tests run"
     - stage: publish
       script: sbt ^publish
+      name: "Publish"
 
 stages:
   - name: test # runs on master commits and PRs
