@@ -7,10 +7,10 @@ jobs:
     - stage: test
       script: sbt scalafmtCheck scalafmtSbtCheck
       name: "Formatting check"
-    - script: sbt test scripted
+    - script: sbt ";^test ;^scripted"
       name: "Tests run"
     - stage: publish
-      script: sbt ^publish
+      script: sbt ";^publish"
       name: "Publish"
 
 stages:
