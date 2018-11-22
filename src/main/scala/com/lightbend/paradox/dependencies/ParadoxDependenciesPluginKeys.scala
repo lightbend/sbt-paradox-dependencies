@@ -16,6 +16,4 @@
 
 package com.lightbend.paradox.dependencies
 
-import sbt._
-
 trait ParadoxDependenciesPluginKeys {}

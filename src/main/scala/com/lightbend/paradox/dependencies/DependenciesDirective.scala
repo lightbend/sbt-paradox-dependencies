@@ -19,7 +19,7 @@ package com.lightbend.paradox.dependencies
 import com.lightbend.paradox.markdown.LeafBlockDirective
 import net.virtualvoid.sbt.graph.{ModuleTree, ModuleTreeNode}
 import org.pegdown.Printer
-import org.pegdown.ast.{DirectiveNode, VerbatimGroupNode, VerbatimNode, Visitor}
+import org.pegdown.ast.{DirectiveNode, Visitor}
 
 class DependenciesDirective(nameToDependencies: String => ModuleTree) extends LeafBlockDirective("dependencies") {
   def render(node: DirectiveNode, visitor: Visitor, printer: Printer): Unit = {
