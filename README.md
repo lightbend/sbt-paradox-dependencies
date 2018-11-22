@@ -1,6 +1,6 @@
 # sbt-paradox-dependencies [![bintray-badge][]][bintray] [![travis-badge][]][travis]
 
-A [Paradox](https://github.com/lightbend/paradox/) directive to list a module's library dependencies and show their transitive dependencies in the Paradox generated documentation. 
+A [Paradox](https://github.com/lightbend/paradox/) directive to show module's transitive dependencies in the Paradox generated documentation.
 
 ## Usage
 
@@ -25,6 +25,6 @@ Feel free to ping contributors for code review or discussions. Pull requests are
 
 [bintray]:               https://bintray.com/sbt/sbt-plugin-releases/sbt-paradox-dependencies
 [bintray-badge]:         https://api.bintray.com/packages/sbt/sbt-plugin-releases/sbt-paradox-dependencies/images/download.svg
-[travis]:                https://travis-ci.org/lightbend/sbt-paradox-dependencies
-[travis-badge]:          https://travis-ci.org/lightbend/sbt-paradox-dependencies.svg?branch=master
+[travis]:                https://travis-ci.com/lightbend/sbt-paradox-dependencies
+[travis-badge]:          https://travis-ci.com/lightbend/sbt-paradox-dependencies.svg?branch=master
 
