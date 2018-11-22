@@ -1,3 +1,4 @@
+import net.virtualvoid.sbt.graph.DependencyGraphKeys
 enablePlugins(ParadoxPlugin)
 paradoxTheme := None
 

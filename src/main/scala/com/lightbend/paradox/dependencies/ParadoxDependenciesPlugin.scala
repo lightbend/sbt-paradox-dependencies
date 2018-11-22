@@ -19,7 +19,7 @@ package com.lightbend.paradox.dependencies
 import com.lightbend.paradox.markdown.Writer
 import com.lightbend.paradox.sbt.ParadoxPlugin
 import com.lightbend.paradox.sbt.ParadoxPlugin.autoImport.paradoxDirectives
-import net.virtualvoid.sbt.graph.DependencyGraphKeys
+import net.virtualvoid.sbt.graph.{DependencyGraphKeys, ModuleTree}
 import sbt._
 import sbt.Keys._
 
@@ -39,10 +39,11 @@ object ParadoxDependenciesPlugin extends AutoPlugin {
         val s = state.value
         Seq(
           { _: Writer.Context ⇒
-            new DependenciesDirective(moduleName =>
-              Project.runTask(LocalProject(moduleName) / Compile / DependencyGraphKeys.moduleTree, s) match {
-                case Some((_, Value(deps))) => deps
+            new DependenciesDirective(moduleName => {
+              Project.runTask(LocalProject(moduleName) / Compile / DependencyGraphKeys.moduleGraphSbt, s) match {
+                case Some((_, Value(deps))) => ModuleTree(deps)
                 case _ => throw new Error(s"Could not retrieve dependency information for [$moduleName]")
+              }
             })
           }
         )
