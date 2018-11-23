@@ -33,16 +33,28 @@ object ParadoxDependenciesPlugin extends AutoPlugin {
 
   override def projectSettings: Seq[Setting[_]] = dependenciesSettings(Compile)
 
-  def dependenciesGlobalSettings: Seq[Setting[_]] = Seq(
+  def dependenciesZeroSettings: Seq[Setting[_]] = Seq(
+    paradoxDependenciesModuleTrees := Def.taskDyn {
+      val filter: ScopeFilter = ScopeFilter(
+        inProjects((paradoxDependenciesModules ?? Seq.empty).value: _*),
+        inConfigurations(Compile)
+      )
+
+      val treesWithModule = Def.task {
+        (thisProject.value.id, ModuleTree(DependencyGraphKeys.moduleGraphSbt.value))
+      }
+
+      treesWithModule.all(filter).map(_.toMap)
+    }.value,
     paradoxDirectives ++= Def.taskDyn {
       Def.task {
-        val s = state.value
+        val trees = paradoxDependenciesModuleTrees.value
         Seq(
           { _: Writer.Context ⇒
             new DependenciesDirective(projectId => {
-              Project.runTask(LocalProject(projectId) / Compile / DependencyGraphKeys.moduleGraphSbt, s) match {
-                case Some((_, Value(deps))) => ModuleTree(deps)
-                case _ => throw new Error(s"Could not retrieve dependency information for projectId [$projectId]")
+              trees.get(projectId) match {
+                case Some(deps) => deps
+                case _ => throw new Error(s"Could not retrieve dependency information for project [$projectId]")
               }
             })
           }
@@ -52,7 +64,7 @@ object ParadoxDependenciesPlugin extends AutoPlugin {
   )
 
   def dependenciesSettings(config: Configuration): Seq[Setting[_]] =
-    dependenciesGlobalSettings ++ inConfig(config)(
+    dependenciesZeroSettings ++ inConfig(config)(
       Seq(
         // scoped settings here
       ))
