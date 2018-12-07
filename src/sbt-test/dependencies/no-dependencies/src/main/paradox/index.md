@@ -1,3 +1,3 @@
 This module has the following dependencies:
 
-@@dependencies { module="no-dependencies" }
+@@dependencies { projectId="no-dependencies" }

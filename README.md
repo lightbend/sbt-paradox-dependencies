@@ -10,7 +10,7 @@ addSbtPlugin("com.lightbend.paradox" % "sbt-paradox-dependencies" % <latest>)
 
 Use the directive in a Paradox markdown file and specify the sbt module name.
 ```
-@@dependencies { module="core" }
+@@dependencies { projectId="core" }
 ```
 
 ## License
