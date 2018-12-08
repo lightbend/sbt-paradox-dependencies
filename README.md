@@ -8,7 +8,7 @@ A [Paradox](https://github.com/lightbend/paradox/) directive to show module's tr
 addSbtPlugin("com.lightbend.paradox" % "sbt-paradox-dependencies" % <latest>)
 ```
 
-Use the directive in a Paradox markdown file and specify the sbt module name.
+Use the directive in a Paradox markdown file and specify the sbt project id.
 ```
 @@dependencies { projectId="core" }
 ```
