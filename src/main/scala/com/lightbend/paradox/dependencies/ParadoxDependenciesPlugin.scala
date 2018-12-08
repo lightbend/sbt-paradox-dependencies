@@ -39,10 +39,10 @@ object ParadoxDependenciesPlugin extends AutoPlugin {
         val s = state.value
         Seq(
           { _: Writer.Context ⇒
-            new DependenciesDirective(moduleName => {
-              Project.runTask(LocalProject(moduleName) / Compile / DependencyGraphKeys.moduleGraphSbt, s) match {
+            new DependenciesDirective(projectId => {
+              Project.runTask(LocalProject(projectId) / Compile / DependencyGraphKeys.moduleGraphSbt, s) match {
                 case Some((_, Value(deps))) => ModuleTree(deps)
-                case _ => throw new Error(s"Could not retrieve dependency information for [$moduleName]")
+                case _ => throw new Error(s"Could not retrieve dependency information for projectId [$projectId]")
               }
             })
           }

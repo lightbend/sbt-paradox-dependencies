@@ -1,0 +1,39 @@
+<p>These modules have the following dependencies:</p>
+<h1><a href="#project-a" name="project-a" class="anchor"><span class="anchor-link"></span></a>Project A</h1>
+<dl class="dependencies"><dt>Direct dependencies</dt><dd><table>
+  <thead><tr><th>Organization</th><th>Artifact</th><th>Version</th><th>License</th></tr></thead>
+  <tbody>
+    <tr><td>com.typesafe.akka</td><td>akka-actor_2.12</td><td><a href="https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor_2.12/2.5.17" target="_blank">2.5.17</a></td><td>Apache License, Version 2.0</td></tr>
+    <tr><td>org.scala-lang</td><td>scala-library</td><td><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.12.7" target="_blank">2.12.7</a></td><td>BSD 3-Clause</td></tr>
+  </tbody>
+</table></dd>
+<dt>Dependency tree</dt><dd><pre>
+com.typesafe.akka    akka-actor_2.12    <a href="https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor_2.12/2.5.17" target="_blank">2.5.17</a>    Apache License, Version 2.0
+    com.typesafe    config    <a href="https://mvnrepository.com/artifact/com.typesafe/config/1.3.3" target="_blank">1.3.3</a>    Apache License, Version 2.0
+    org.scala-lang.modules    scala-java8-compat_2.12    <a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-java8-compat_2.12/0.8.0" target="_blank">0.8.0</a>    BSD 3-clause
+        org.scala-lang    scala-library    <a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.12.7" target="_blank">2.12.7</a>    BSD 3-Clause
+    org.scala-lang    scala-library    <a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.12.7" target="_blank">2.12.7</a>    BSD 3-Clause
+org.scala-lang    scala-library    <a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.12.7" target="_blank">2.12.7</a>    BSD 3-Clause</pre></dd>
+</dl>
+
+<h1><a href="#project-b" name="project-b" class="anchor"><span class="anchor-link"></span></a>Project B</h1>
+
+<dl class="dependencies"><dt>Direct dependencies</dt><dd><table>
+  <thead><tr><th>Organization</th><th>Artifact</th><th>Version</th><th>License</th></tr></thead>
+  <tbody>
+    <tr><td>org.scala-lang</td><td>scala-library</td><td><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.12.7" target="_blank">2.12.7</a></td><td>BSD 3-Clause</td></tr>
+    <tr><td>org.slf4j</td><td>slf4j-api</td><td><a href="https://mvnrepository.com/artifact/org.slf4j/slf4j-api/1.7.25" target="_blank">1.7.25</a></td><td>MIT License</td></tr>
+    <tr><td>projecta</td><td>projecta_2.12</td><td><a href="https://mvnrepository.com/artifact/projecta/projecta_2.12/0.1.0-SNAPSHOT" target="_blank">0.1.0-SNAPSHOT</a></td></tr>
+  </tbody>
+</table></dd>
+<dt>Dependency tree</dt><dd><pre>
+org.scala-lang    scala-library    <a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.12.7" target="_blank">2.12.7</a>    BSD 3-Clause
+org.slf4j    slf4j-api    <a href="https://mvnrepository.com/artifact/org.slf4j/slf4j-api/1.7.25" target="_blank">1.7.25</a>    MIT License
+projecta    projecta_2.12    <a href="https://mvnrepository.com/artifact/projecta/projecta_2.12/0.1.0-SNAPSHOT" target="_blank">0.1.0-SNAPSHOT</a>
+    com.typesafe.akka    akka-actor_2.12    <a href="https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor_2.12/2.5.17" target="_blank">2.5.17</a>    Apache License, Version 2.0
+        com.typesafe    config    <a href="https://mvnrepository.com/artifact/com.typesafe/config/1.3.3" target="_blank">1.3.3</a>    Apache License, Version 2.0
+        org.scala-lang.modules    scala-java8-compat_2.12    <a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-java8-compat_2.12/0.8.0" target="_blank">0.8.0</a>    BSD 3-clause
+            org.scala-lang    scala-library    <a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.12.7" target="_blank">2.12.7</a>    BSD 3-Clause
+        org.scala-lang    scala-library    <a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.12.7" target="_blank">2.12.7</a>    BSD 3-Clause
+    org.scala-lang    scala-library    <a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.12.7" target="_blank">2.12.7</a>    BSD 3-Clause</pre></dd>
+</dl>

@@ -21,10 +21,10 @@ import net.virtualvoid.sbt.graph.{ModuleTree, ModuleTreeNode}
 import org.pegdown.Printer
 import org.pegdown.ast.{DirectiveNode, Visitor}
 
-class DependenciesDirective(nameToDependencies: String => ModuleTree) extends LeafBlockDirective("dependencies") {
+class DependenciesDirective(projectIdToDependencies: String => ModuleTree) extends LeafBlockDirective("dependencies") {
   def render(node: DirectiveNode, visitor: Visitor, printer: Printer): Unit = {
-    val moduleName = node.attributes.value("module")
-    val tree       = nameToDependencies(moduleName)
+    val projectId = node.attributes.value("projectId")
+    val tree      = projectIdToDependencies(projectId)
     printer.println()
     val classes = Seq("dependencies", node.attributes.classesString).filter(_.nonEmpty)
     printer.print(s"""<dl class="${classes.mkString(" ")}">""")
