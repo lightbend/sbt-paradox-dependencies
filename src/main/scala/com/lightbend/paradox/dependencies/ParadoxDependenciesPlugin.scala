@@ -38,7 +38,7 @@ object ParadoxDependenciesPlugin extends AutoPlugin {
       val projectsToFilter = paradoxDependenciesProjects.?.value
         .map(inProjects)
         .getOrElse {
-          inAggregates(LocalRootProject, includeRoot = false)
+          inAggregates(LocalRootProject, includeRoot = true)
         }
 
       val filter: ScopeFilter = ScopeFilter(projectsToFilter, inConfigurations(Compile))
