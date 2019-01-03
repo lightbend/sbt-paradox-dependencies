@@ -21,6 +21,6 @@ import net.virtualvoid.sbt.graph.ModuleTree
 import sbt._
 
 trait ParadoxDependenciesPluginKeys {
-  val paradoxDependenciesModules     = settingKey[Seq[ProjectReference]]("Modules to get the dependency information for")
+  val paradoxDependenciesProjects    = settingKey[Seq[ProjectReference]]("Projects to get the dependency information for")
   val paradoxDependenciesModuleTrees = taskKey[Map[String, ModuleTree]]("Retrieved module trees")
 }

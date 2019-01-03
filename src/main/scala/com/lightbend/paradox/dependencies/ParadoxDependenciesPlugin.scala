@@ -35,16 +35,19 @@ object ParadoxDependenciesPlugin extends AutoPlugin {
 
   def dependenciesZeroSettings: Seq[Setting[_]] = Seq(
     paradoxDependenciesModuleTrees := Def.taskDyn {
-      val filter: ScopeFilter = ScopeFilter(
-        inProjects((paradoxDependenciesModules ?? Seq.empty).value: _*),
-        inConfigurations(Compile)
-      )
+      val projectsToFilter = paradoxDependenciesProjects.?.value
+        .map(inProjects)
+        .getOrElse {
+          inAggregates(LocalRootProject, includeRoot = false)
+        }
 
-      val treesWithModule = Def.task {
+      val filter: ScopeFilter = ScopeFilter(projectsToFilter, inConfigurations(Compile))
+
+      val projectIdWithTree = Def.task {
         (thisProject.value.id, ModuleTree(DependencyGraphKeys.moduleGraphSbt.value))
       }
 
-      treesWithModule.all(filter).map(_.toMap)
+      projectIdWithTree.all(filter).map(_.toMap)
     }.value,
     paradoxDirectives ++= Def.taskDyn {
       Def.task {
