@@ -16,4 +16,11 @@
 
 package com.lightbend.paradox.dependencies
 
-trait ParadoxDependenciesPluginKeys {}
+import net.virtualvoid.sbt.graph.ModuleTree
+
+import sbt._
+
+trait ParadoxDependenciesPluginKeys {
+  val paradoxDependenciesProjects    = settingKey[Seq[ProjectReference]]("Projects to get the dependency information for")
+  val paradoxDependenciesModuleTrees = taskKey[Map[String, ModuleTree]]("Retrieved module trees")
+}

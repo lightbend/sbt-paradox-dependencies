@@ -9,9 +9,13 @@ addSbtPlugin("com.lightbend.paradox" % "sbt-paradox-dependencies" % <latest>)
 ```
 
 Use the directive in a Paradox markdown file and specify the sbt project id.
+
 ```
 @@dependencies { projectId="core" }
 ```
+
+Any project from the build root project aggregates can be specified. If the project is not among the aggregates, then it needs
+to be added to the `paradoxDependenciesProjects` setting value.
 
 ## License
 

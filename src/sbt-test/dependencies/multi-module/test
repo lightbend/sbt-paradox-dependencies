@@ -1,3 +1,9 @@
+# expect to fail, because projectA is not part of the root aggregate
+-> paradox
+
+> set paradoxDependenciesProjects := Seq(projectA, projectB)
+
+# now plugin knows about all projects and is able to generate dependency info for all
 > paradox
 
 $ must-mirror target/paradox/site/main/index.html expected/index.html
