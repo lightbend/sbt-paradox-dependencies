@@ -2,7 +2,7 @@
 
 A [Paradox](https://github.com/lightbend/paradox/) directive to show module's transitive dependencies in the Paradox generated documentation.
 
-## Usage
+## Usage 
 
 ```scala
 addSbtPlugin("com.lightbend.paradox" % "sbt-paradox-dependencies" % <latest>)
