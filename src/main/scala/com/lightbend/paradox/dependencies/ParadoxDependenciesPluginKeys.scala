@@ -21,6 +21,8 @@ import net.virtualvoid.sbt.graph.ModuleTree
 import sbt._
 
 trait ParadoxDependenciesPluginKeys {
-  val paradoxDependenciesProjects    = settingKey[Seq[ProjectReference]]("Projects to get the dependency information for")
+  val paradoxDependenciesProjects = settingKey[Seq[ProjectReference]]("Projects to get the dependency information for")
+  val paradoxDependenciesShowLicenses =
+    settingKey[Boolean]("Show the license column (license information is unavailable with sbt 1.3.2)")
   val paradoxDependenciesModuleTrees = taskKey[Map[String, ModuleTree]]("Retrieved module trees")
 }
