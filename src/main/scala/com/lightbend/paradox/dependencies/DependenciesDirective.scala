@@ -21,7 +21,8 @@ import net.virtualvoid.sbt.graph.{ModuleTree, ModuleTreeNode}
 import org.pegdown.Printer
 import org.pegdown.ast.{DirectiveNode, Visitor}
 
-class DependenciesDirective(projectIdToDependencies: String => ModuleTree) extends LeafBlockDirective("dependencies") {
+class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: String => ModuleTree)
+    extends LeafBlockDirective("dependencies") {
   def render(node: DirectiveNode, visitor: Visitor, printer: Printer): Unit = {
     val projectId = node.attributes.value("projectId")
     val tree      = projectIdToDependencies(projectId)
@@ -29,7 +30,7 @@ class DependenciesDirective(projectIdToDependencies: String => ModuleTree) exten
     val classes = Seq("dependencies", node.attributes.classesString).filter(_.nonEmpty)
     printer.print(s"""<dl class="${classes.mkString(" ")}">""")
     if (tree.roots.flatMap(_.children).nonEmpty) {
-      renderDirect(node, tree.roots, printer)
+      renderDirect(node, tree.roots, showLicenses, printer)
       renderTree(node, tree.roots, printer)
     } else {
       printer.print("<dt>Direct dependencies</dt><dd>This module has no dependencies.</dd>")
@@ -38,10 +39,12 @@ class DependenciesDirective(projectIdToDependencies: String => ModuleTree) exten
     printer.println()
   }
 
-  private def renderDirect(node: DirectiveNode, roots: Seq[ModuleTreeNode], p: Printer): Unit = {
+  private def renderDirect(node: DirectiveNode, roots: Seq[ModuleTreeNode], showLicenses: Boolean, p: Printer): Unit = {
     p.print("<dt>Direct dependencies</dt><dd><table>")
     p.indent(2).println()
-    p.print("<thead><tr><th>Organization</th><th>Artifact</th><th>Version</th><th>License</th></tr></thead>").println()
+    p.print("<thead><tr><th>Organization</th><th>Artifact</th><th>Version</th>")
+    if (showLicenses) p.print("<th>License</th></tr>")
+    p.print("</thead>").println()
     p.print("<tbody>")
     p.indent(2)
     for {
@@ -61,7 +64,7 @@ class DependenciesDirective(projectIdToDependencies: String => ModuleTree) exten
         )
         .print(moduleId.version)
         .print("</a></td>")
-      d.node.license.foreach(l => p.print("<td>").print(l).print("</td>"))
+      if (showLicenses) d.node.license.foreach(l => p.print("<td>").print(l).print("</td>"))
       p.print("</tr>")
     }
     p.indent(-2).println()

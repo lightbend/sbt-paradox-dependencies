@@ -34,6 +34,9 @@ object ParadoxDependenciesPlugin extends AutoPlugin {
   override def projectSettings: Seq[Setting[_]] = dependenciesSettings(Compile)
 
   def dependenciesZeroSettings: Seq[Setting[_]] = Seq(
+    paradoxDependenciesShowLicenses := {
+      sbtVersion.value.startsWith("1.1.") || sbtVersion.value.startsWith("1.2.")
+    },
     paradoxDependenciesModuleTrees := Def.taskDyn {
           val projectsToFilter = paradoxDependenciesProjects.?.value
             .map(inProjects)
@@ -54,7 +57,7 @@ object ParadoxDependenciesPlugin extends AutoPlugin {
             val trees = paradoxDependenciesModuleTrees.value
             Seq(
               { _: Writer.Context ⇒
-                new DependenciesDirective(projectId => {
+                new DependenciesDirective(paradoxDependenciesShowLicenses.value)(projectId => {
                   trees.get(projectId) match {
                     case Some(deps) => deps
                     case _ => throw new Error(s"Could not retrieve dependency information for project [$projectId]")
