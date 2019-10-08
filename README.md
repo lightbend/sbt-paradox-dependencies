@@ -17,6 +17,10 @@ Use the directive in a Paradox markdown file and specify the sbt project id.
 Any project from the build root project aggregates can be specified. If the project is not among the aggregates, then it needs
 to be added to the `paradoxDependenciesProjects` setting value.
 
+```scala
+paradoxDependenciesProjects := Seq(projectA, projectB)
+```
+
 ## License
 
 The license is Apache 2.0, see LICENSE.
