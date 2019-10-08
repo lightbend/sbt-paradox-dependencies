@@ -1,4 +1,4 @@
-scalaVersion := "2.12.7"
+scalaVersion := "2.12.10"
 
 sbtPlugin := true
 
@@ -37,3 +37,7 @@ bintrayRepository   := "sbt-plugin-releases"
 
 enablePlugins(AutomateHeaderPlugin)
 scalafmtOnCompile := true
+
+// don't do any API docs
+doc / sources := Seq()
+packageDoc / publishArtifact := false
