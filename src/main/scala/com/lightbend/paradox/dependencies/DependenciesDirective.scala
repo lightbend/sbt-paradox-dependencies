@@ -56,7 +56,9 @@ class DependenciesDirective(projectIdToDependencies: String => ModuleTree) exten
         .print("</td><td>")
         .print(name)
         .print("</td><td>")
-        .print(s"""<a href="https://mvnrepository.com/artifact/${moduleId.organisation}/$name/${moduleId.version}" target="_blank">""")
+        .print(
+          s"""<a href="https://mvnrepository.com/artifact/${moduleId.organisation}/$name/${moduleId.version}" target="_blank">"""
+        )
         .print(moduleId.version)
         .print("</a></td>")
       d.node.license.foreach(l => p.print("<td>").print(l).print("</td>"))
@@ -88,7 +90,8 @@ class DependenciesDirective(projectIdToDependencies: String => ModuleTree) exten
         .print("    ")
         .print(name)
         .print(
-          s"""    <a href="https://mvnrepository.com/artifact/${moduleId.organisation}/$name/${moduleId.version}" target="_blank">""")
+          s"""    <a href="https://mvnrepository.com/artifact/${moduleId.organisation}/$name/${moduleId.version}" target="_blank">"""
+        )
         .print(moduleId.version)
         .print("</a>")
       n.node.license.foreach(l => p.print("    ").print(l))
