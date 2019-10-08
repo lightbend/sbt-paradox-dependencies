@@ -1,4 +1,4 @@
-scalaVersion := "2.12.7"
+scalaVersion := "2.12.10"
 
 sbtPlugin := true
 
@@ -21,8 +21,11 @@ resolvers += Resolver.bintrayIvyRepo("2m", "sbt-plugins")
 licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 homepage := Some(url("https://github.com/lightbend/sbt-paradox-dependencies"))
 scmInfo := Some(
-  ScmInfo(url("https://github.com/lightbend/sbt-paradox-dependencies"),
-          "git@github.com:lightbend/sbt-paradox-dependencies.git"))
+  ScmInfo(
+    url("https://github.com/lightbend/sbt-paradox-dependencies"),
+    "git@github.com:lightbend/sbt-paradox-dependencies.git"
+  )
+)
 developers += Developer(
   "contributors",
   "Contributors",
@@ -37,3 +40,7 @@ bintrayRepository   := "sbt-plugin-releases"
 
 enablePlugins(AutomateHeaderPlugin)
 scalafmtOnCompile := true
+
+// don't do any API docs
+doc / sources                := Seq()
+packageDoc / publishArtifact := false

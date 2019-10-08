@@ -1,6 +1,6 @@
 language: scala
-jdk: oraclejdk8
-scala: 2.12.7
+jdk: openjdk11
+scala: 2.12.10
 
 jobs:
   include:
@@ -21,8 +21,8 @@ stages:
 
 cache:
   directories:
-    - $HOME/.ivy2/cache
     - $HOME/.sbt
+    - $HOME/cache/coursier/v1
 
 before_cache:
   - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print -delete
