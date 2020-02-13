@@ -14,9 +14,7 @@ organization     := "com.lightbend.paradox"
 name             := "sbt-paradox-dependencies"
 
 addSbtPlugin("com.lightbend.paradox" % "sbt-paradox"          % "0.4.3")
-addSbtPlugin("net.virtual-void"      % "sbt-dependency-graph" % "0.9.2+10-148ba0ff")
-
-resolvers += Resolver.bintrayIvyRepo("2m", "sbt-plugins")
+addSbtPlugin("net.virtual-void"      % "sbt-dependency-graph" % "0.10.0-RC1")
 
 licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 homepage := Some(url("https://github.com/lightbend/sbt-paradox-dependencies"))
