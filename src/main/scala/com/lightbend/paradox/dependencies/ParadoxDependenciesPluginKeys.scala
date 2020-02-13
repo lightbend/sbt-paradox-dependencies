@@ -16,7 +16,7 @@
 
 package com.lightbend.paradox.dependencies
 
-import net.virtualvoid.sbt.graph.{ModuleGraph}
+import net.virtualvoid.sbt.graph.ModuleGraph
 import sbt._
 
 trait ParadoxDependenciesPluginKeys {
