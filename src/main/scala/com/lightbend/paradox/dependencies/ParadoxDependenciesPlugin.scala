@@ -19,7 +19,7 @@ package com.lightbend.paradox.dependencies
 import com.lightbend.paradox.markdown.Writer
 import com.lightbend.paradox.sbt.ParadoxPlugin
 import com.lightbend.paradox.sbt.ParadoxPlugin.autoImport.paradoxDirectives
-import net.virtualvoid.sbt.graph.{DependencyGraphKeys, ModuleTree}
+import net.virtualvoid.sbt.graph.{DependencyGraphKeys, ModuleGraph}
 import sbt._
 import sbt.Keys._
 
@@ -47,7 +47,8 @@ object ParadoxDependenciesPlugin extends AutoPlugin {
           val filter: ScopeFilter = ScopeFilter(projectsToFilter, inConfigurations(Compile))
 
           val projectIdWithTree = Def.task {
-            (thisProject.value.id, ModuleTree(DependencyGraphKeys.moduleGraphSbt.value))
+            val sbtGraph = DependencyGraphKeys.moduleGraphSbt.value
+            (thisProject.value.id, ModuleGraph.apply(sbtGraph.nodes, sbtGraph.edges))
           }
 
           projectIdWithTree.all(filter).map(_.toMap)

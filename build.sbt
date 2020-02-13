@@ -14,7 +14,7 @@ organization     := "com.lightbend.paradox"
 name             := "sbt-paradox-dependencies"
 
 addSbtPlugin("com.lightbend.paradox" % "sbt-paradox"          % "0.4.3")
-addSbtPlugin("net.virtual-void"      % "sbt-dependency-graph" % "0.9.2+10-148ba0ff")
+addSbtPlugin("net.virtual-void"      % "sbt-dependency-graph" % "0.10.0-RC1")
 
 resolvers += Resolver.bintrayIvyRepo("2m", "sbt-plugins")
 

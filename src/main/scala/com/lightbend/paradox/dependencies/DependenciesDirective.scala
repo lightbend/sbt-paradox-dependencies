@@ -17,21 +17,21 @@
 package com.lightbend.paradox.dependencies
 
 import com.lightbend.paradox.markdown.LeafBlockDirective
-import net.virtualvoid.sbt.graph.{ModuleTree, ModuleTreeNode}
+import net.virtualvoid.sbt.graph.{Module, ModuleGraph} // .graph.{ModuleTree, ModuleTreeNode}
 import org.pegdown.Printer
 import org.pegdown.ast.{DirectiveNode, Visitor}
 
-class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: String => ModuleTree)
+class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: String => ModuleGraph)
     extends LeafBlockDirective("dependencies") {
   def render(node: DirectiveNode, visitor: Visitor, printer: Printer): Unit = {
     val projectId = node.attributes.value("projectId")
-    val tree      = projectIdToDependencies(projectId)
+    val graph     = projectIdToDependencies(projectId)
     printer.println()
     val classes = Seq("dependencies", node.attributes.classesString).filter(_.nonEmpty)
     printer.print(s"""<dl class="${classes.mkString(" ")}">""")
-    if (tree.roots.flatMap(_.children).nonEmpty) {
-      renderDirect(node, tree.roots, showLicenses, printer)
-      renderTree(node, tree.roots, printer)
+    if (graph.roots.flatMap(m => children(graph, m)).nonEmpty) {
+      renderDirect(graph, showLicenses, printer)
+      renderTree(graph, printer)
     } else {
       printer.print("<dt>Direct dependencies</dt><dd>This module has no dependencies.</dd>")
     }
@@ -39,7 +39,7 @@ class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: Stri
     printer.println()
   }
 
-  private def renderDirect(node: DirectiveNode, roots: Seq[ModuleTreeNode], showLicenses: Boolean, p: Printer): Unit = {
+  private def renderDirect(graph: ModuleGraph, showLicenses: Boolean, p: Printer): Unit = {
     p.print("<dt>Direct dependencies</dt><dd><table>")
     p.indent(2).println()
     p.print("<thead><tr><th>Organization</th><th>Artifact</th><th>Version</th>")
@@ -48,10 +48,10 @@ class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: Stri
     p.print("<tbody>")
     p.indent(2)
     for {
-      r <- roots
-      d <- r.children
+      r <- graph.roots
+      d <- children(graph, r)
     } {
-      val moduleId = d.node.id
+      val moduleId = d.id
       val name     = moduleId.name
       p.println()
         .print("<tr><td>")
@@ -64,7 +64,7 @@ class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: Stri
         )
         .print(moduleId.version)
         .print("</a></td>")
-      if (showLicenses) d.node.license.foreach(l => p.print("<td>").print(l).print("</td>"))
+      if (showLicenses) d.license.foreach(l => p.print("<td>").print(l).print("</td>"))
       p.print("</tr>")
     }
     p.indent(-2).println()
@@ -73,20 +73,20 @@ class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: Stri
     p.print("</table></dd>").println()
   }
 
-  private def renderTree(node: DirectiveNode, roots: Seq[ModuleTreeNode], p: Printer): Unit = {
+  private def renderTree(graph: ModuleGraph, p: Printer): Unit = {
     p.print("<dt>Dependency tree</dt><dd><pre>")
     for {
-      r <- roots
-      d <- r.children
+      r <- graph.roots
+      d <- children(graph, r)
     } {
-      renderTreeNode(p, d)
+      renderTreeNode(p, graph, d)
     }
     p.print("</pre></dd>").println()
   }
 
-  private def renderTreeNode(p: Printer, n: ModuleTreeNode): Unit =
-    if (n.node.evictedByVersion.isEmpty) {
-      val moduleId = n.node.id
+  private def renderTreeNode(p: Printer, graph: ModuleGraph, n: Module): Unit =
+    if (n.evictedByVersion.isEmpty) {
+      val moduleId = n.id
       val name     = moduleId.name
       p.println()
         .print(moduleId.organisation)
@@ -97,12 +97,15 @@ class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: Stri
         )
         .print(moduleId.version)
         .print("</a>")
-      n.node.license.foreach(l => p.print("    ").print(l))
-      if (n.children.nonEmpty) {
+      n.license.foreach(l => p.print("    ").print(l))
+      if (children(graph, n).nonEmpty) {
         p.indent(4)
-        n.children.foreach(renderTreeNode(p, _))
+        children(graph, n).foreach(renderTreeNode(p, graph, _))
         p.indent(-4)
       }
     }
+
+  private def children(graph: ModuleGraph, module: Module) = graph.dependencyMap(module.id)
+
 
 }
