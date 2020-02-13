@@ -107,5 +107,4 @@ class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: Stri
 
   private def children(graph: ModuleGraph, module: Module) = graph.dependencyMap(module.id)
 
-
 }
