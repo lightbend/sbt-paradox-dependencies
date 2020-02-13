@@ -17,7 +17,7 @@
 package com.lightbend.paradox.dependencies
 
 import com.lightbend.paradox.markdown.LeafBlockDirective
-import net.virtualvoid.sbt.graph.{Module, ModuleGraph} // .graph.{ModuleTree, ModuleTreeNode}
+import net.virtualvoid.sbt.graph.{Module, ModuleGraph}
 import org.pegdown.Printer
 import org.pegdown.ast.{DirectiveNode, Visitor}
 
