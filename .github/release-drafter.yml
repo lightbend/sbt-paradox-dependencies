@@ -3,11 +3,9 @@ name-template: 'sbt-paradox-dependencies $NEXT_PATCH_VERSION'
 tag-template: 'v$NEXT_PATCH_VERSION'
 categories:
   - title: '🚀 Features'
-      labels:
-        - 'enhancement'
+    label: 'enhancement'
   - title: '🐛 Bug Fixes'
-    labels:
-      - 'bug'
+    label: 'bug'
 
 change-template: '- $TITLE [#$NUMBER](https://github.com/lightbend/sbt-paradox-dependencies/issues/$NUMBER) by [@$AUTHOR](https://github.com/$AUTHOR)'
 template: |
