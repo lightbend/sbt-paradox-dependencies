@@ -78,9 +78,8 @@ class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: Stri
     for {
       r <- graph.roots
       d <- children(graph, r)
-    } {
-      renderTreeNode(p, graph, d)
     }
+      renderTreeNode(p, graph, d)
     p.print("</pre></dd>").println()
   }
 

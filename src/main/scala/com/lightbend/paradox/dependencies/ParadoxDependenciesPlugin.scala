@@ -38,42 +38,40 @@ object ParadoxDependenciesPlugin extends AutoPlugin {
       sbtVersion.value.startsWith("1.1.") || sbtVersion.value.startsWith("1.2.")
     },
     paradoxDependenciesModuleTrees := Def.taskDyn {
-          val projectsToFilter = paradoxDependenciesProjects.?.value
-            .map(inProjects)
-            .getOrElse {
-              inAggregates(LocalRootProject, includeRoot = true)
-            }
+      val projectsToFilter = paradoxDependenciesProjects.?.value
+        .map(inProjects)
+        .getOrElse {
+          inAggregates(LocalRootProject, includeRoot = true)
+        }
 
-          val filter: ScopeFilter = ScopeFilter(projectsToFilter, inConfigurations(Compile))
+      val filter: ScopeFilter = ScopeFilter(projectsToFilter, inConfigurations(Compile))
 
-          val projectIdWithTree = Def.task {
-            val sbtGraph = DependencyGraphKeys.moduleGraphSbt.value
-            (thisProject.value.id, ModuleGraph.apply(sbtGraph.nodes, sbtGraph.edges))
-          }
+      val projectIdWithTree = Def.task {
+        val sbtGraph = DependencyGraphKeys.moduleGraphSbt.value
+        (thisProject.value.id, ModuleGraph.apply(sbtGraph.nodes, sbtGraph.edges))
+      }
 
-          projectIdWithTree.all(filter).map(_.toMap)
-        }.value,
+      projectIdWithTree.all(filter).map(_.toMap)
+    }.value,
     paradoxDirectives ++= Def.taskDyn {
-          Def.task {
-            val trees = paradoxDependenciesModuleTrees.value
-            Seq(
-              { _: Writer.Context ⇒
-                new DependenciesDirective(paradoxDependenciesShowLicenses.value)(projectId => {
-                  trees.get(projectId) match {
-                    case Some(deps) => deps
-                    case _ => throw new Error(s"Could not retrieve dependency information for project [$projectId]")
-                  }
-                })
-              }
-            )
-          }
-        }.value
+      Def.task {
+        val trees = paradoxDependenciesModuleTrees.value
+        Seq { _: Writer.Context ⇒
+          new DependenciesDirective(paradoxDependenciesShowLicenses.value)(projectId =>
+            trees.get(projectId) match {
+              case Some(deps) => deps
+              case _ => throw new Error(s"Could not retrieve dependency information for project [$projectId]")
+            }
+          )
+        }
+      }
+    }.value
   )
 
   def dependenciesSettings(config: Configuration): Seq[Setting[_]] =
     dependenciesZeroSettings ++ inConfig(config)(
-          Seq(
-            // scoped settings here
-          )
-        )
+      Seq(
+        // scoped settings here
+      )
+    )
 }
