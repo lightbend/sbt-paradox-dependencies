@@ -35,3 +35,30 @@ startYear        := Some(2018)
 
 enablePlugins(AutomateHeaderPlugin)
 scalafmtOnCompile := true
+
+ThisBuild / githubWorkflowTargetTags ++= Seq("v*")
+ThisBuild / githubWorkflowPublishTargetBranches :=
+  Seq(RefPredicate.StartsWith(Ref.Tag("v")))
+ThisBuild / githubWorkflowPublish := Seq(
+  WorkflowStep.Sbt(
+    List("ci-release"),
+    env = Map(
+      "PGP_PASSPHRASE" -> "${{ secrets.PGP_PASSPHRASE }}",
+      "PGP_SECRET" -> "${{ secrets.PGP_SECRET }}",
+      "SONATYPE_PASSWORD" -> "${{ secrets.SONATYPE_PASSWORD }}",
+      "SONATYPE_USERNAME" -> "${{ secrets.SONATYPE_USERNAME }}"
+    )
+  )
+)
+
+ThisBuild / test / publishArtifact := false
+ThisBuild / pomIncludeRepository   := (_ => false)
+sonatypeProfileName                := "com.lightbend"
+
+ThisBuild / githubWorkflowJavaVersions := List(
+  JavaSpec.temurin("8"),
+  JavaSpec.temurin("11"),
+  JavaSpec.temurin("17")
+)
+
+ThisBuild / githubWorkflowTargetBranches := Seq("master")
