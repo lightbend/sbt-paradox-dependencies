@@ -33,12 +33,5 @@ developers += Developer(
 organizationName := "Lightbend Inc."
 startYear        := Some(2018)
 
-bintrayOrganization := Some("sbt")
-bintrayRepository   := "sbt-plugin-releases"
-
 enablePlugins(AutomateHeaderPlugin)
 scalafmtOnCompile := true
-
-// don't do any API docs
-doc / sources                := Seq()
-packageDoc / publishArtifact := false
