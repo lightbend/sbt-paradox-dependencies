@@ -34,7 +34,6 @@ organizationName := "Lightbend Inc."
 startYear        := Some(2018)
 
 enablePlugins(AutomateHeaderPlugin)
-scalafmtOnCompile := true
 
 ThisBuild / githubWorkflowTargetTags ++= Seq("v*")
 ThisBuild / githubWorkflowPublishTargetBranches :=
