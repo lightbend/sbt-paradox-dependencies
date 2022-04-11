@@ -61,4 +61,4 @@ ThisBuild / githubWorkflowJavaVersions := List(
   JavaSpec.temurin("17")
 )
 
-ThisBuild / githubWorkflowTargetBranches := Seq("master")
+ThisBuild / githubWorkflowTargetBranches := Seq("master", "main")
