@@ -60,7 +60,7 @@ object ParadoxDependenciesPlugin extends AutoPlugin {
           new DependenciesDirective(paradoxDependenciesShowLicenses.value)(projectId =>
             trees.get(projectId) match {
               case Some(deps) => deps
-              case _ => throw new Error(s"Could not retrieve dependency information for project [$projectId]")
+              case _          => throw new Error(s"Could not retrieve dependency information for project [$projectId]")
             }
           )
         }
