@@ -56,8 +56,8 @@ sonatypeProfileName                := "com.lightbend"
 
 ThisBuild / githubWorkflowJavaVersions := List(
   JavaSpec.temurin("8"),
-  JavaSpec.temurin("11"),
-  JavaSpec.temurin("17")
+  JavaSpec.temurin("11")
 )
 
 ThisBuild / githubWorkflowTargetBranches := Seq("master", "main")
+ThisBuild / githubWorkflowBuild          := Seq(WorkflowStep.Sbt(List("test", "scripted")))
