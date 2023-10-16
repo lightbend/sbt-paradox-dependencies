@@ -83,8 +83,9 @@ class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: Stri
     p.print("</pre></dd>").println()
   }
 
-  private def renderTreeNode(p: Printer, graph: ModuleGraph, n: Module): Unit =
-    if (n.evictedByVersion.isEmpty) {
+  private def renderTreeNode(p: Printer, graph: ModuleGraph, n: Module): Unit = {
+    // not useful with too many indents and that may be infinite recursion
+    if (p.indent < 100 && n.evictedByVersion.isEmpty) {
       val moduleId = n.id
       val name     = moduleId.name
       p.println()
@@ -103,6 +104,7 @@ class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: Stri
         p.indent(-4)
       }
     }
+  }
 
   private def children(graph: ModuleGraph, module: Module) = graph.dependencyMap(module.id)
 
