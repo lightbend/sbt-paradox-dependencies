@@ -79,13 +79,13 @@ class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: Stri
       r <- graph.roots
       d <- children(graph, r)
     }
-      renderTreeNode(p, graph, d)
+      renderTreeNode(p, graph, d, Set.empty)
     p.print("</pre></dd>").println()
   }
 
-  private def renderTreeNode(p: Printer, graph: ModuleGraph, n: Module): Unit = {
-    // not useful with too many indents and that may be infinite recursion
-    if (p.indent < 100 && n.evictedByVersion.isEmpty) {
+  private def renderTreeNode(p: Printer, graph: ModuleGraph, n: Module, parents: Set[Module]): Unit =
+    // avoid cycles by checking if in parents
+    if (n.evictedByVersion.isEmpty && !parents.contains(n)) {
       val moduleId = n.id
       val name     = moduleId.name
       p.println()
@@ -100,11 +100,10 @@ class DependenciesDirective(showLicenses: Boolean)(projectIdToDependencies: Stri
       n.license.foreach(l => p.print("    ").print(l))
       if (children(graph, n).nonEmpty) {
         p.indent(4)
-        children(graph, n).foreach(renderTreeNode(p, graph, _))
+        children(graph, n).foreach(renderTreeNode(p, graph, _, parents + n))
         p.indent(-4)
       }
     }
-  }
 
   private def children(graph: ModuleGraph, module: Module) = graph.dependencyMap(module.id)
 
