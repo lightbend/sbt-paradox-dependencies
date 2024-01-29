@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "2.12.15"
+ThisBuild / scalaVersion := "2.12.18"
 
 sbtPlugin := true
 
@@ -13,7 +13,7 @@ crossSbtVersions := List("1.1.0")
 organization     := "com.lightbend.paradox"
 name             := "sbt-paradox-dependencies"
 
-addSbtPlugin("com.lightbend.paradox" % "sbt-paradox"          % "0.4.3")
+addSbtPlugin("com.lightbend.paradox" % "sbt-paradox"          % "0.10.6")
 addSbtPlugin("net.virtual-void"      % "sbt-dependency-graph" % "0.10.0-RC1")
 
 licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
