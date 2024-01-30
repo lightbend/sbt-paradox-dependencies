@@ -33,6 +33,5 @@ Feel free to ping contributors for code review or discussions. Pull requests are
 
 [maven-central]:         https://maven-badges.herokuapp.com/maven-central/com.lightbend.paradox/sbt-paradox-dependencies
 [maven-central-badge]:   https://maven-badges.herokuapp.com/maven-central/com.lightbend.paradox/sbt-paradox-dependencies/badge.svg
-[github-actions]:        https://github.com/lightbend/sbt-paradox-dependencies/actions/workflows/ci.yml?query=branch%3Amaster
-[github-actions-badge]:  https://github.com/lightbend/sbt-paradox-dependencies/actions/workflows/ci.yml/badge.svg?branch=master
-
+[github-actions]:        https://github.com/lightbend/sbt-paradox-dependencies/actions/workflows/ci.yml?query=branch%3Amain
+[github-actions-badge]:  https://github.com/lightbend/sbt-paradox-dependencies/actions/workflows/ci.yml/badge.svg?branch=main
