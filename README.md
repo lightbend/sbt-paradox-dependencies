@@ -1,4 +1,6 @@
-# sbt-paradox-dependencies [![maven-central-badge][]][maven-central][![github-actions-badge][]][github-actions]
+# sbt-paradox-dependencies 
+
+# End-of-life -- this plugin is not maintained anymore, the repository will soon be archived
 
 A [Paradox](https://github.com/lightbend/paradox/) directive to show module's transitive dependencies in the Paradox generated documentation.
 
@@ -27,12 +29,6 @@ The license is Apache 2.0, see LICENSE.
 
 ## Maintenance notes
 
+End-of-life -- this plugin is not maintained anymore, the repository will soon be archived
+
 **This project is NOT supported under the Lightbend subscription.**
-
-Feel free to ping contributors for code review or discussions. Pull requests are very welcome–thanks in advance!
-
-[maven-central]:         https://maven-badges.herokuapp.com/maven-central/com.lightbend.paradox/sbt-paradox-dependencies
-[maven-central-badge]:   https://maven-badges.herokuapp.com/maven-central/com.lightbend.paradox/sbt-paradox-dependencies/badge.svg
-[github-actions]:        https://github.com/lightbend/sbt-paradox-dependencies/actions/workflows/ci.yml?query=branch%3Amaster
-[github-actions-badge]:  https://github.com/lightbend/sbt-paradox-dependencies/actions/workflows/ci.yml/badge.svg?branch=master
-
